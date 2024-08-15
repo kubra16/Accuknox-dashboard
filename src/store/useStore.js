@@ -5,22 +5,42 @@ const useStore = create((set) => ({
     {
       id: "1",
       name: "CSPM Executive Dashboard",
-      widgets: [],
+      widgets: [
+        {
+          id: "1-1",
+          name: "Security Alerts",
+          text: "Overview of active security alerts.",
+        },
+      ],
     },
     {
       id: "2",
       name: "Sales Overview",
-      widgets: [],
+      widgets: [
+        {
+          id: "2-1",
+          name: "Monthly Sales",
+          text: "Sales data for the current month.",
+        },
+      ],
     },
     {
       id: "3",
       name: "Image",
-      widgets: [],
+      widgets: [
+        { id: "3-1", name: "Logo", text: "Company logo and branding." },
+      ],
     },
     {
       id: "4",
       name: "Ticket",
-      widgets: [],
+      widgets: [
+        {
+          id: "4-1",
+          name: "Open Tickets",
+          text: "List of unresolved support tickets.",
+        },
+      ],
     },
   ],
 

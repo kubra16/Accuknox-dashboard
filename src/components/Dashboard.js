@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useStore from "../store/useStore";
-import { Box, Button, Input, InputAdornment } from "@mui/material";
+import { Box, Button, Input, InputAdornment, Typography } from "@mui/material";
 import AddWidgetModal from "./AddWidgetModal";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -43,10 +43,14 @@ const Dashboard = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-around",
           padding: "1rem",
         }}
       >
+        <Typography variant="h5" sx={{ fontWeight: 600, pl: 4 }}>
+          Dashboard
+        </Typography>
+
         <Input
           type="text"
           placeholder="Search widgets..."
@@ -54,7 +58,7 @@ const Dashboard = () => {
           value={searchText}
           sx={{
             marginTop: ".5rem",
-            width: "50%",
+            width: "30%",
             height: "35px",
             padding: "8px",
             border: "1px solid #808080",
@@ -81,7 +85,10 @@ const Dashboard = () => {
 
       {filteredCategories.map((category) => (
         <div key={category.id}>
-          <h2>{category.name}</h2>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600, pl: 4 }}>
+            {category.name}
+          </Typography>
+
           <Box
             sx={{
               padding: "2rem",
@@ -103,37 +110,78 @@ const Dashboard = () => {
                 <Box
                   key={widget.id}
                   sx={{
-                    height: "10rem",
-                    border: "1px solid gray",
-                    borderRadius: "8px",
-                    backgroundColor: "#f9f9f9",
+                    height: "12rem",
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "12px",
+                    backgroundColor: "#ffffff",
+                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    textAlign: "center",
+                    overflow: "hidden",
                   }}
                 >
-                  <h3>{widget.name}</h3>
-                  <p>{widget.text}</p>
-                  <Button
-                    variant="outlined"
-                    onClick={() =>
-                      useStore.getState().removeWidget(category.id, widget.id)
-                    }
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      p: 1.5,
+                      borderBottom: "1px solid #e0e0e0",
+                      backgroundColor: "#f7f7f7",
+                    }}
                   >
-                    X
-                  </Button>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ fontWeight: 500, pl: 4 }}
+                    >
+                      {widget.name}
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      size="small"
+                      onClick={() =>
+                        useStore.getState().removeWidget(category.id, widget.id)
+                      }
+                      sx={{
+                        minWidth: "28px",
+                        height: "28px",
+                        p: 0,
+                        borderRadius: "50%",
+                        border: "none",
+                        backgroundColor: "#ffebee",
+                        "&:hover": {
+                          backgroundColor: "#ffcdd2",
+                        },
+                      }}
+                    >
+                      X
+                    </Button>
+                  </Box>
+                  <Box
+                    sx={{
+                      p: 2,
+                      flex: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Typography variant="body2" color="textSecondary">
+                      {widget.text}
+                    </Typography>
+                  </Box>
                 </Box>
               ))}
 
               <Box
                 sx={{
-                  height: "10rem",
+                  height: "12rem",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  border: "1px solid gray",
+
                   borderRadius: "1rem",
                   cursor: "pointer",
                   backgroundColor: "#fff",
@@ -141,7 +189,17 @@ const Dashboard = () => {
                 variant="contained"
                 onClick={() => handleOpenModal(category.id)}
               >
-                + Add Widget
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  sx={{
+                    border: "2px solid #e0e0e0",
+                    padding: "0.3rem 1rem",
+                    borderRadius: ".5rem",
+                  }}
+                >
+                  + Add Widget
+                </Typography>
               </Box>
             </Box>
           </Box>
@@ -151,7 +209,7 @@ const Dashboard = () => {
       <AddWidgetModal
         open={openModal}
         handleClose={handleCloseModal}
-        categoryId={selectedCategory}
+        initialCategory={selectedCategory}
       />
     </div>
   );

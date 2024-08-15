@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -12,11 +12,19 @@ import {
 } from "@mui/material";
 import useStore from "../store/useStore";
 
-const AddWidgetModal = ({ open, handleClose }) => {
+const AddWidgetModal = ({ open, handleClose, initialCategory }) => {
   const [widgetName, setWidgetName] = useState("");
   const [widgetText, setWidgetText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(0);
   const { categories, addWidget } = useStore();
+
+  useEffect(() => {
+    if (initialCategory !== null) {
+      setSelectedCategory(
+        categories.findIndex((cat) => cat.id === initialCategory)
+      );
+    }
+  }, [initialCategory, categories]);
 
   const handleAddWidget = () => {
     if (!widgetName || !widgetText || selectedCategory === -1) {
